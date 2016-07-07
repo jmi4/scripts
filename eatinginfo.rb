@@ -30,19 +30,16 @@ bodystats ["bmr"] = 370 + (21.6 * (bodystats["leanBodyMass"] / 2.2))
 case status
   when "cutting"
     if bodystats["bodyFatPercentage"] < 25 
-      puts "your ideal weight"
       bodystats ["protien"] = 1.2 * bodystats["weight"]
       bodystats ["carbs"] = 1 * bodystats["weight"]
       bodystats ["fat"] = 0.2 * bodystats["weight"]
       bodystats ["dailyCalories"] = (bodystats["protien"] * 4) + (bodystats["carbs"] * 4) + (bodystats["fat"] * 9)
     elsif bodystats["bodyFatPercentage"] > 25 and bodystats["bodyFatPercentage"] < 30
-      puts "your overweight"
       bodystats ["protien"] = 0.8 * bodystats["weight"]
       bodystats ["carbs"] = 0.6 * bodystats["weight"]
       bodystats ["fat"] = 0.3 * bodystats["weight"]
       bodystats ["dailyCalories"] = (bodystats["protien"] * 4) + (bodystats["carbs"] * 4) + (bodystats["fat"] * 9)
     elsif bodystats["bodyFatPercentage"] > 30
-      puts "your obese"
       bodystats ["dailyCalories"] = bodystats["bmr"] * 1.2
       bodystats ["protien"] = (bodystats["dailyCalories"] * 0.4) / 4
       bodystats ["carbs"] = (bodystats["dailyCalories"] * 0.4) / 4
@@ -58,6 +55,7 @@ case status
     bodystats ["fat"] = 0.35 * bodystats["weight"]
   else
     puts "please spellout correctly cutting, bulking, or maintaining"
+    exit
 end
 
 case tdee
@@ -69,11 +67,20 @@ case tdee
     bodystats ["tdee"] = bodystats["bmr"] * 1.5
   else
     puts "Please select a, b, or c when answering how many excercises per week!"
+    exit
 end
-    
-bodystats["protien"].round(2)
-# Not needed delete after testing
-puts bodystats
+
+puts "Here are the details of your recommended food intake:"
+puts ""
+puts "Basal Metabolic Rate: #{bodystats["bmr"]} calories burned every 24 hours with no effort."
+puts "Total Daily Energy Expenditure: #{bodystats["tdee"]} calories burned every 24 hours with activity included."
+puts "Lean Body Mass: #{bodystats["leanBodyMass"]}"
+puts "Body Fat Percentage: #{bodystats["bodyFatPercentage"]}"
+puts "Body Mass Index: #{bodystats["bodyMassIndex"]}"
+puts "Total Daily Calores: #{bodystats["dailyCalories"]} calories"
+puts "Amount of protien to eat in grams per day: #{bodystats["protien"]}"
+puts "Amount of carbohydrates to eat in grams per day: #{bodystats["carbs"]}"
+puts "Amount of fat to eat in grams per day: #{bodystats["fat"]}"
 
 
 
