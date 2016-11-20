@@ -3,6 +3,12 @@
 bodystats = Hash.new
 
 #Get stats and save in hash
+print "Are you male or female?: "
+bodystats ["sex"] = gets.chomp.to_s.downcase
+
+print "Enter your age: "
+bodystats ["age"] = gets.chomp.to_f
+
 print "Enter your weight in pounds: "
 bodystats ["weight"] = gets.chomp.to_f
 
@@ -22,10 +28,17 @@ puts "c: 6 or more hours per week"
 puts "Select a, b, or c: "
 tdee = gets.chomp.to_s.downcase
 
-bodystats ["leanBodyMass"] = bodystats["weight"] * 1.082 + 94.42 - bodystats["waist"] * 4.15
-bodystats ["bodyFatPercentage"] = (bodystats["weight"] - bodystats["leanBodyMass"]) * 100 / bodystats["weight"]
-bodystats ["bodyMassIndex"] = (bodystats["weight"] * 0.45) / ((bodystats["height"] * 0.025)**2)
-bodystats ["bmr"] = 370 + (21.6 * (bodystats["leanBodyMass"] / 2.2))
+if bodystats["sex"] == "male"
+  bodystats ["leanBodyMass"] = bodystats["weight"] * 1.082 + 94.42 - bodystats["waist"] * 4.15
+  bodystats ["bodyFatPercentage"] = (bodystats["weight"] - bodystats["leanBodyMass"]) * 100 / bodystats["weight"]
+  bodystats ["bodyMassIndex"] = (bodystats["weight"] * 0.45) / ((bodystats["height"] * 0.025)**2)
+  bodystats ["bmr"] = 370 + (21.6 * (bodystats["leanBodyMass"] / 2.2))
+elsif bodystats["sex"] == "female"
+  
+else
+  puts "please enter male or female"
+  exit
+end
 
 case status
   when "cutting"
